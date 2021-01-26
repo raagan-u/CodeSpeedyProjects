@@ -5,13 +5,18 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+# setting up the db path 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+#setting up serializer for easy working
 se = Marshmallow(app)
+
+
 db = SQLAlchemy(app)
 
+#creating fields 
 class Sample(db.Model):
 	ide = db.Column(db.Integer, primary_key=True)
 	field1 = db.Column(db.String(35))
@@ -22,12 +27,15 @@ class Sample(db.Model):
 		self.field1 = field1
 		self.field2 = field2
 
+#setting up how the data should be serialized and ouput to be given
 class Sample_Schema(se.Schema):
 	class Meta:
 		fields = ('ide', 'field1', 'field2')		
 
 sample_schema = Sample_Schema()
+#sample_schemas = Sample_Schema(many=True)
 
+#setting up route
 @app.route("/", methods = ['GET'])
 def root_handler():
 	return jsonify({ 'name': 'unknown' })
