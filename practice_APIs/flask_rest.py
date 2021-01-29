@@ -73,6 +73,29 @@ def putting(collection):
 		db.session.add(temp_obj)
 		db.session.commit()
 		return sample_schema.jsonify(temp_obj), 200
-# yet to add patch and delete
+
+@app.route("/patching/<collection>", methods = ['PATCH'])
+def patching(collection):
+	temp_obj = Sample.query.get(collection)
+	if temp_obj:
+		temp_obj.field1, temp_obj.field2 = request.json['field1'], request.json['field2']
+		db.session.add(temp_obj)
+		db.session.commit()
+		return jsonify({'process': 'updated'}), 201
+
+	temp_obj = Sample(request.json)
+	db.session.add()
+	db.session.commit()
+	return jsonify({'process': 'created'}), 200
+
+@app.route("/deleteing/<collection>", methods = ['DELETE'])
+def deleting(collection):
+	temp_obj = Sample.query.get(collection)
+	if temp_obj:
+		db.session.delete(temp_obj)
+		db.session.commit()
+		return jsonify({"deleted": "yes"}), 200
+
+	return jsonify({"record": "not found"}), 404
 # also need to add logger
 app.run(debug=True)
