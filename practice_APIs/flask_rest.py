@@ -97,5 +97,9 @@ def deleting(collection):
 		return jsonify({"deleted": "yes"}), 200
 
 	return jsonify({"record": "not found"}), 404
+
+logging.basicConfig(filename='flask_session.log',
+						level=logging.DEBUG,
+							format=’%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s’)
 # also need to add logger
 app.run(debug=True)
