@@ -101,5 +101,5 @@ def deleting(collection):
 logging.basicConfig(filename='flask_session.log',
 						level=logging.DEBUG,
 							format=’%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s’)
-# also need to add logger
+
 app.run(debug=True)
