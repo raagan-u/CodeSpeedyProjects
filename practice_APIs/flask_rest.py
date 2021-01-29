@@ -2,6 +2,7 @@ import os
 from flask import Flask, jsonify, request
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
+import logging
 
 app = Flask(__name__)
 
@@ -88,7 +89,7 @@ def patching(collection):
 	db.session.commit()
 	return jsonify({'process': 'created'}), 200
 
-@app.route("/deleteing/<collection>", methods = ['DELETE'])
+@app.route("/deleting/<collection>", methods = ['DELETE'])
 def deleting(collection):
 	temp_obj = Sample.query.get(collection)
 	if temp_obj:
@@ -100,6 +101,6 @@ def deleting(collection):
 
 logging.basicConfig(filename='flask_session.log',
 						level=logging.DEBUG,
-							format=’%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s’)
+							format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 app.run(debug=True)
