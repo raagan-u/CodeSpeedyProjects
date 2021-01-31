@@ -1,9 +1,17 @@
 import sys
-def codeparser(string):
-	key = string.split(" ")
-	print(key)
+class codeparser:
+	def __init__(self):
+		print("parser object created"
+		)
+	def parse(self,string):
+		self.string = enumerate(string.split(" "))
+		print(string.split(" "))
+	
+	def disp_one(self):
+		for i, j in self.string:
+			print(i,'===>', j)
 
 if __name__ == "__main__":
 	with open(sys.argv[1]) as fd:
-		for i in fd:
-			codeparser(i)
+		parser = codeparser(fd)
+		parser.parse()
