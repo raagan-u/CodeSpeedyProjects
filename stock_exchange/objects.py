@@ -35,9 +35,10 @@ class Jobber:
 		return f"{self.name} is a Security Merchant"
 
 class Speculators:
-	def _init__(self):
+	def __init__(self):
 		self.type = ['bull', 'bear', 'stag', 'lame_duck']
 		print(self.type)
+
 
 if __name__ == '__main__':
 	mr_x = Remiser("mr_x")
