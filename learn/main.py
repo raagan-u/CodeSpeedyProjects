@@ -5,7 +5,7 @@ def class_creation():
 	pass
 
 def socket_creation():
-	pass
+	print("sockets are endpoints in connections ")
 
 def file_handling():
 	pass
@@ -27,3 +27,5 @@ def csv():
 
 def executing_shell_commands():
 	pass
+
+# learn to do things in python not learn python
