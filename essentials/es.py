@@ -1,7 +1,11 @@
+#!/usr/bin/python3
 import http.server , subprocess as sp, socketserver
 import os, hashlib
 import smtplib, socket, base64
 import scapy.all as scapy
+from pyftpdlib.handlers import FTPHandler
+from pyftpdlib.authorizers import DummyAuthorizer
+from pyftpdlib.servers import FTPServer
 
 def run_server(port, directory):
 	os.chdir(os.path.abspath(directory))
@@ -62,15 +66,29 @@ def scan_net(ip):
 	for i in results_list:
 		print(i)
 
+def ftp():
+	autho = DummyAuthorizer()
+	autho.add_anonymous(os.getcwd())
+	handler = FTPHandler
+	handler.authorizer = autho
+	'''
+		e - cd ; l - list_files, r - retreive(read perms)
+		the following is write_perms:
+		a- append, d - delete , r - rename, m - create dir , 
+			w - store file to srvr , M - chmod, T - update file last
+										modified time
+	'''
+	addr = ('', 1337)
+	with FTPServer(addr, handler) as srvr:
+		srvr.serve_forever()
+
 def git():
 	pass
 
 def bluetooth():
-	pass
-
-def ftp():
-	pass
-
+# has smany deps so think before adding to script
 if __name__ == "__main__":
-	send_mail("raaganuthayaargn@gmail.com", "12098.raaganu@gmail.com", "Testing", "this is a test message")
+	ftp()
 #https://docs.python.org/3/library/threading.html
+#https://github.com/pybluez/pybluez
+#https://recolog.blogspot.com/2013/07/transferring-files-via-bluetooth-using.html
