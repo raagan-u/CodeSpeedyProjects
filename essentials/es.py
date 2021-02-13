@@ -86,6 +86,7 @@ def git():
 	pass
 
 def bluetooth():
+	pass
 # has smany deps so think before adding to script
 if __name__ == "__main__":
 	ftp()
