@@ -6,13 +6,8 @@ from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.servers import FTPServer
 
-<<<<<<< HEAD
 
-
-def run_server(port, directory):
-=======
 def http_server(port, directory):
->>>>>>> f7b41a847bb4fddb03f5a7dab040a3d1d7ca7be1
 	os.chdir(os.path.abspath(directory))
 	address = ('', int(port))
 	handler = http.server.SimpleHTTPRequestHandler
