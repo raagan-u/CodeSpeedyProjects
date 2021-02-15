@@ -1,15 +1,18 @@
 #!/usr/bin/python3
-import http.server , subprocess as sp, socketserver
-import os, hashlib
-import smtplib, socket, base64
+import http.server, socketserver
+import os, hashlib, smtplib, socket, base64, sys
 import scapy.all as scapy
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.servers import FTPServer
 
+<<<<<<< HEAD
 
 
 def run_server(port, directory):
+=======
+def http_server(port, directory):
+>>>>>>> f7b41a847bb4fddb03f5a7dab040a3d1d7ca7be1
 	os.chdir(os.path.abspath(directory))
 	address = ('', int(port))
 	handler = http.server.SimpleHTTPRequestHandler
@@ -17,22 +20,14 @@ def run_server(port, directory):
 		print(f"serving on 0.0.0.0 on port {port}")
 		httpd.serve_forever()
 	
-def send_mail(sender, recepient, message, body):
-	smtp_server = smtplib.SMTP("www.gmail.com",587)
-	smtp_server.ehlo()
-	smtp_server.starttls()
-	smtp_server.login(input("Enter Name"), input("Enter Password"))
-	msg = f"\r\nFrom:{sender}\nTo:{recepient}\nSubject:{sub}\n{body})"
-	smtp_server.sendmail(sender, recepient, message)
-	smtp.quit()
-
 def get_ip():
+	# this won't work for linux users that have /etc/hosts configs 
 	host_name = socket.gethostname()
 	ip = socket.getaddrinfo(host_name, port = 80)
 	ipv4, ipv6 = ip[0][4][0], ip[1][4][0]
 	print(f"Your IPv4 Addreess is {ipv4}\nYour IPv6 Address is {ipv6}")
 
-def b64():
+def base64():
 	ch = int(input("1.Encode\n2.Decode"))
 	if ch == 1:
 		encoded = base64.b64encode(bytes(input("String To Be Encoded>> "), 'utf-8'))
@@ -56,6 +51,9 @@ def enc_dec():
 	print(hash_obj.hexdigest())
 
 def scan_net(ip):
+	# windows user must have winpcap inorder to use this module
+	# winpacap is the standard windows packet capture library
+	# https://www.winpcap.org/install/default.htm
 	arp = scapy.ARP(pdst = ip)
 	bc = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff")
 	arp_bc = bc/arp
@@ -68,9 +66,11 @@ def scan_net(ip):
 	for i in results_list:
 		print(i)
 
-def ftp():
+def ftp_server():
+	# should add code for windows
 	autho = DummyAuthorizer()
 	autho.add_anonymous(os.getcwd())
+	autho.add_user('user1', '$password', './', perm='elrarmw')
 	handler = FTPHandler
 	handler.authorizer = autho
 	'''
@@ -80,18 +80,17 @@ def ftp():
 			w - store file to srvr , M - chmod, T - update file last
 										modified time
 	'''
-	addr = ('', 1337)
+	addr = ('192.168.1.10', 1337)
 	with FTPServer(addr, handler) as srvr:
 		srvr.serve_forever()
 
-def git():
-	pass
+def rot_alg():
+	for c in (65, 97):
+    	for i in range(26):
+        	d[chr(i+c)] = chr((i+13) % 26 + c)
 
-def bluetooth():
-	pass
-# has smany deps so think before adding to script
 if __name__ == "__main__":
-	ftp()
-#https://docs.python.org/3/library/threading.html
-#https://github.com/pybluez/pybluez
-#https://recolog.blogspot.com/2013/07/transferring-files-via-bluetooth-using.html
+	#run_server(8080, "./")
+	#scan_net("192.168.1.1/24")
+	#https://docs.python.org/3/library/threading.html
+	get_ip()
