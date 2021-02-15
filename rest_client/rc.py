@@ -36,6 +36,7 @@ def delete(url, jsons=None):
 if __name__ == "__main__":
 	args = get_args()
 	json_data = json.loads(args.jsons)
+	print(json_data, type(json_data))
 	if args.method in locals() and callable(locals()[args.method]):
 		print(*(locals()[args.method](args.url, json_data)), sep="\n")
 # fix json erros?!!!!
