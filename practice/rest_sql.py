@@ -89,8 +89,8 @@ def deleting(ide):
 	return jsonify({"record": "not found"}), 404
 
 # logging flask logs to file
-logging.basicConfig(filename='flask_session.log',
+'''logging.basicConfig(filename='flask_session.log',
 						level=logging.DEBUG,
 							format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
-
+'''
 app.run(debug=True)
