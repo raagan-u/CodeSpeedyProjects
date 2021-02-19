@@ -6,8 +6,10 @@ from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.servers import FTPServer
 
+__all__ = ["http_server", "get_ip", "b64", "enc_dec", "scan_net", "ftp_server", "rot_alg", "port_scanner"]
 
-def http_server(port, directory):
+def http_server():
+	port, directory = int(input("Enter Port ")), input("Enter directory ")
 	os.chdir(os.path.abspath(directory))
 	address = ('', int(port))
 	handler = http.server.SimpleHTTPRequestHandler
@@ -22,9 +24,10 @@ def get_ip():
 	ipv4, ipv6 = ip[0][4][0], ip[1][4][0]
 	print(f"Your IPv4 Addreess is {ipv4}\nYour IPv6 Address is {ipv6}")
 
-def base64():
+def b64():
 	ch = int(input("1.Encode\n2.Decode"))
 	if ch == 1:
+		# encoding errors
 		encoded = base64.b64encode(bytes(input("String To Be Encoded>> "), 'utf-8'))
 		print(f"your encoded message is {encoded}")
 
@@ -45,10 +48,11 @@ def enc_dec():
 	hash_obj.update(input("Enter Data to Be Encoded >> ").encode('utf-8'))
 	print(hash_obj.hexdigest())
 
-def scan_net(ip):
+def scan_net():
 	# windows user must have winpcap inorder to use this module
 	# winpacap is the standard windows packet capture library
 	# https://www.winpcap.org/install/default.htm
+	ip = input("Enter IP or any other valid CIDR Notation")
 	arp = scapy.ARP(pdst = ip)
 	bc = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff")
 	arp_bc = bc/arp
@@ -62,7 +66,7 @@ def scan_net(ip):
 		print(i)
 
 def ftp_server():
-	# should add code for windows
+	port = int(input("Enter port "))
 	autho = DummyAuthorizer()
 	autho.add_anonymous(os.getcwd())
 	autho.add_user('user1', '$password', './', perm='elrarmw')
@@ -75,17 +79,23 @@ def ftp_server():
 			w - store file to srvr , M - chmod, T - update file last
 										modified time
 	'''
-	addr = ('192.168.1.10', 1337)
+	addr = ('', port)
 	with FTPServer(addr, handler) as srvr:
 		srvr.serve_forever()
 
-def rot_alg():
+def rot_alg(num): 
 	for c in (65, 97):
-    	for i in range(26):
-        	d[chr(i+c)] = chr((i+13) % 26 + c)
+		for i in range(26):
+			d[chr(i+c)] = chr((i+num) % 26 + c)
 
+def port_scanner():
+	pass
+funcs = {1: http_server, 2: get_ip, 3: b64, 4: enc_dec, 5: scan_net, 6: ftp_server, 7: rot_alg, 8: port_scanner}
 if __name__ == "__main__":
-	#run_server(8080, "./")
-	#scan_net("192.168.1.1/24")
-	#https://docs.python.org/3/library/threading.html
-	get_ip()
+	ch = 1
+	while ch !=0:
+		print("Welcome to Simple Script")
+		print("List of available functions\n1.http_server\n2.get_ip\n3.base64\n4.enc_dec\n5.scan_net\n6.ftp_server\n7.rot_alg\n8.port_scanner")
+		ch = int(input("Enter Choice (1...10)\n 0 for exit\n >> "))
+		funcs[ch]()
+	print("Exiting...")
