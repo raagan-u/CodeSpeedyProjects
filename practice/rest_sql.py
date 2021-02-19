@@ -33,11 +33,12 @@ class Sample_Schema(se.Schema):
 		fields = ('ide', 'field1', 'field2')		
 
 sample_schema = Sample_Schema()
-
+sample_schemas = Sample_Schema(many=True)
 # four basic routes
 @app.route("/", methods = ['GET'])
 def root_handler():
-	return jsonify({ 'name': 'unknown' })
+	temp_obj = Sample.query.all()
+	return sample_schemas.jsonify(temp_obj)
 
 @app.route("/get_data/<int:ide>", methods=['GET'])
 def get_data(ide):
@@ -53,7 +54,7 @@ def add_data():
 	db.session.commit()
 	return sample_schema.jsonify(temp_obj)
 
-@app.route("/putting/<int:ide>", methods = ['PUT'])
+@app.route("/putting/<int:collection>", methods = ['PUT'])
 def putting(collection):
 	temp_obj = Sample.query.get(collection)
 	if temp_obj:
