@@ -34,7 +34,8 @@ class Sample_Schema(se.Schema):
 
 sample_schema = Sample_Schema()
 sample_schemas = Sample_Schema(many=True)
-# four basic routes
+
+# five basic routes
 @app.route("/", methods = ['GET'])
 def root_handler():
 	temp_obj = Sample.query.all()
