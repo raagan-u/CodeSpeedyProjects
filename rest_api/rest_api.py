@@ -55,9 +55,9 @@ def add_data():
 	db.session.commit()
 	return sample_schema.jsonify(temp_obj)
 
-@app.route("/putting/<int:collection>", methods = ['PUT'])
-def putting(collection):
-	temp_obj = Sample.query.get(collection)
+@app.route("/putting/<int:ide>", methods = ['PUT'])
+def putting(ide):
+	temp_obj = Sample.query.get(ide)
 	if temp_obj:
 		return sample_schema.jsonify(temp_obj), 201
 	else:

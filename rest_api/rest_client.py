@@ -42,6 +42,5 @@ if __name__ == "__main__":
 	val = vars(get_args())
 	method = val.pop("method")
 	values = val.values()
-	#json_data = json.loads(.jsons)
 	if method in locals() and callable(locals()[method]):
 		print(*(locals()[method](*values)), sep="\n")

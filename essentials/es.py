@@ -83,10 +83,19 @@ def ftp_server():
 	with FTPServer(addr, handler) as srvr:
 		srvr.serve_forever()
 
-def rot_alg(num): 
+def rot_alg(): 
+	rot = {}
 	for c in (65, 97):
 		for i in range(26):
-			d[chr(i+c)] = chr((i+num) % 26 + c)
+			rot[chr(i+c)] = chr((i+13) % 26 + c)
+	inp, ret = input("Enter string\n>>>"), ""
+
+	for i in inp:
+		try:
+			ret += rot[i]
+		except KeyError:
+			ret += i 
+	print(ret)
 
 def port_scanner():
 	ip = input("Enter Ip >> ")
@@ -94,12 +103,14 @@ def port_scanner():
 	socket.setdefaulttimeout(1)
 	for i in range(0,1001):
 		result = server.connect_ex((ip, i))
+		print(f"scanning port {i}")
 		if result == 0:
 			print(f"port {i} is open\n")
 		else:
 			continue
 
 funcs = {1: http_server, 2: get_ip, 3: b64, 4: enc_dec, 5: scan_net, 6: ftp_server, 7: rot_alg, 8: port_scanner}
+
 if __name__ == "__main__":
 	ch = 1
 	while ch !=0:
