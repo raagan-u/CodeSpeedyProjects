@@ -1,4 +1,3 @@
-# imports
 import os
 from flask import Flask, jsonify, request
 from flask_marshmallow import Marshmallow
@@ -9,6 +8,7 @@ app = Flask(__name__)
 
 # database setup
 basedir = os.path.abspath(os.path.dirname(__file__))
+# also can use other sql dbs instead of sqlite .
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -16,7 +16,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 se = Marshmallow(app)
 db = SQLAlchemy(app)
 
-#fields for db
+# fields for db
 class Sample(db.Model):
 	ide = db.Column(db.Integer, primary_key=True)
 	field1 = db.Column(db.String(35))
@@ -27,7 +27,7 @@ class Sample(db.Model):
 		self.field1 = req_json['field1']
 		self.field2 = req_json['field2']
 
-#setting up serializing
+# setting up serializing
 class Sample_Schema(se.Schema):
 	class Meta:
 		fields = ('ide', 'field1', 'field2')		
@@ -35,7 +35,7 @@ class Sample_Schema(se.Schema):
 sample_schema = Sample_Schema()
 sample_schemas = Sample_Schema(many=True)
 
-# five basic routes
+# routes with five basic HTTP Methods
 @app.route("/", methods = ['GET'])
 def root_handler():
 	temp_obj = Sample.query.all()
@@ -76,7 +76,7 @@ def patching(ide):
 		return jsonify({'process': 'updated'}), 201
 
 	temp_obj = Sample(request.json)
-	db.session.add()
+	db.session.add(temp_obj)
 	db.session.commit()
 	return jsonify({'process': 'created'}), 200
 
@@ -90,7 +90,7 @@ def deleting(ide):
 
 	return jsonify({"record": "not found"}), 404
 
-# logging flask logs to file
+# optional logging to file
 '''logging.basicConfig(filename='flask_session.log',
 						level=logging.DEBUG,
 							format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
