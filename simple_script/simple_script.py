@@ -73,7 +73,8 @@ def scan_net():
 # anonymous logins allowed by default
 # a default user with read rights
 def ftp_server():
-	port = int(input("Enter port "))
+	port, directory = int(input("Enter port ")), input("Enter directory ")
+	os.chdir(os.path.abspath(directory))
 	autho = DummyAuthorizer()
 	autho.add_anonymous(os.getcwd())
 	# can create new users with credentials
