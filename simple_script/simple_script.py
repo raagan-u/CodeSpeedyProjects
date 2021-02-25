@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import http.server, socketserver
 import os, hashlib, socket, base64, sys, scapy.all as scapy
+import concurrent.futures as cf
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.servers import FTPServer
@@ -105,15 +106,24 @@ def rot_alg():
 			ret += i 
 	print(ret)
 
-# port scanner to scan ports <warning: very slow>
-def port_scanner():
-	ip = input("Enter IP to scan ports")
+def scan_port(ip, port):
 	srvr = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	for port in range(0,100):
-		print(f"scanning port {port} ")
+	try:
+		print(f"scanning port {port} ") 
 		res = srvr.connect_ex((ip, port))
 		if res == 0:
 			print(f"Port {port} is open")
+	except socket.gaierror:
+		pass
+# port scanner to scan ports <warning: very slow>
+def port_scanner():
+	ip = input("Enter IP to scan ports >> ")
+	with cf.ProcessPoolExecutor() as executor:
+		results = [executor.submit(scan_port, ip, i) for i in range(0,1001)]
+	
+	for f in cf.as_completed(results):
+		if f.result():
+			print(f.result())
 	
 # listed all functions in a dictionary but also can use locals() to extract list of all available functions
 funcs = {1: http_server, 2: get_ip, 3: b64, 4: enc_dec, 5: scan_net, 6: ftp_server, 7: rot_alg, 8: port_scanner}
