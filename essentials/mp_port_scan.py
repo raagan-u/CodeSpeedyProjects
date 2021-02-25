@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import socket, sys, concurrent.futures as cf
 
 ip = sys.argv[1]
@@ -14,6 +15,7 @@ if __name__ == '__main__':
 		results = [executor.submit(scan, i) for i in range(0,100)]
 
 	for f in cf.as_completed(results):
-		print(f.result()) 
+		if f.result():
+			print(f.result())
 
-# concurrency in python
+# add argparse , debug, if possible port option

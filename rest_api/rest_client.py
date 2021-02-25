@@ -2,6 +2,8 @@
 import requests as req
 import argparse, json, sys
 
+__all__ = [ do_get, do_put, do_post, do_put, do_patch, do_delete ] 
+
 def get_args():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-m", "--method",dest="method",  type=str, help=" specify the http method to use ")
@@ -38,6 +40,7 @@ def do_delete(url, jsons=None):
 	resp = req.delete(url)
 	return resp.status_code, resp.text
 
+funcs = {"do_get":do_get, "do_put":do_put, "do_post":do_post, "do_patch":do_patch, "do_delete":do_delete}
 if __name__ == "__main__":
 	val = vars(get_args())
 	method = val.pop("method")
