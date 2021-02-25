@@ -2,8 +2,6 @@
 import requests as req
 import argparse, json, sys
 
-__all__ = [ do_get, do_put, do_post, do_put, do_patch, do_delete ] 
-
 def get_args():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-m", "--method",dest="method",  type=str, help=" specify the http method to use ")

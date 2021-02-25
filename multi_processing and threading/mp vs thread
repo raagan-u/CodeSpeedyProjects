@@ -1,0 +1,15 @@
+execution of certain tasks can be tricky and maybe slow too. This is where threading and multiprocessing comes in. The Example I take to explain multiprocessing and threading is port_Scanner.
+
+using the port scanner and scanning for ports synchronously is a tedious and slow job. Now Python has standard libraries threading and multiprocessing. These are basic and we should take care of the starting and joining processes and threads in those modules. I have also included the code in the zip . But here we use concurrent module in python, which has Pool Executor for both threading and multiprocessing. 
+Threading:
+Creates new threads for the same process and executes things
+Multiprocessing :
+Creates new child processes and executes things and returns to parent process
+
+this is also evident from the task manager and linux shell
+
+We cannot use ProcessPoolExecutor inside another func becasuse we must have ifmain to safeguard the concurrency from calling unwanted recursive functions
+
+but in linux there is no problem , since it has fork()
+
+But python is not THE recomended language for threading and concurrency. There are several other good languages like go , java , etc that has concurrency support

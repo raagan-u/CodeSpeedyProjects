@@ -1,8 +1,0 @@
-import something
-
-def hello():
-	def say what():
-		print("hi")
-
-print("nice")
-

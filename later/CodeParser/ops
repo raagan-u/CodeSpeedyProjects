@@ -1,0 +1,11 @@
+def hello():
+	def say what():
+		print("hi")
+
+print("nice")
+class Sample:
+	def __init__(self):
+		print()
+	def _class:
+		for i in range(0,100):
+			print("nothing")

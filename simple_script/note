@@ -1,0 +1,30 @@
+A script that consists of useful functions that are time-consuming while working on other things.  Works well on GNU\Linux, But has some issues while running on windows
+
+
+This Simple_Script contains a total of eight functions. Each function is simple but useful and is fully functional in linux. It has some issues while running on windows. The functions are 1.http_server, 2.get_ip, 3.b64, 4.enc_dec, 5.scan_net, 6.ftp_server, 7.rot_alg, 8.port_scanner. This script is best executed on GNU\Linux Systems.
+
+Dependencies:
+
+The script runs mostly on standard libraries of Python except for only one external dependency: pyftpdlib for creating ftp_server
+
+Functions  and Short Description:
+
+1.http_server - creates a simple HTTP server in the specified port and directory
+
+2.get_ip - gets the local ipv4 address and ipv6 address ( doesn't work in GNU\Linux, since we configure /etc/hosts )
+
+3.b64 - encode and decode data in base64 format
+
+4.enc_dec - gives a list of guaranteed encryption algorithms and encrypts data in the selected format
+
+5.scan_net - scans the current network and returns a list of dictionaries of IP and mac addresses of all the devices in the same network
+
+6.ftp_server - creates ftp server (pyftpdlib) in the specified port and directory
+
+7.rot_alg - rot algorithm
+
+8.port_scanner - multi-processing involved port_scanner that scans for the open ports in a given IP
+
+Note For Windows Users:
+
+Most of the script's functions get executed except the multi_threaded port_scanner since windows os doesn't have fork() as in Linux. So it's not possible currently, to run multiprocessing in windows apart from main(). To enable ftp_server functionality in normal Windows OSes, the users should enable FTP Server under IIS in Windows Programs and Features to use the ftp_server on the go. To utilize the scan_net Windows users must have winpcap installed.
