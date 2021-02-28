@@ -35,6 +35,7 @@ class Sample_Schema(se.Schema):
 sample_schema = Sample_Schema()
 sample_schemas = Sample_Schema(many=True)
 
+db.create_all()
 # routes with five basic HTTP Methods
 @app.route("/", methods = ['GET'])
 def root_handler():
