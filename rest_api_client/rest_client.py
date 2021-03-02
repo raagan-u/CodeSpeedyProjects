@@ -4,7 +4,7 @@ import argparse, json, sys
 
 def get_args():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("-m", "--method",dest="method",  type=str, help=" specify the http method to use ")
+	parser.add_argument("-m", "--method",dest="method",  type=str, help=" specify the http method to use.  do-get, do_post,  do_put,  do_patch,  do_delete")
 	parser.add_argument("-u", "--url",dest="url",  type=str, help=" specify the url ")
 	parser.add_argument("-j", "--json", dest='jsons', type=str, help=" optional json input ", default=None)
 	args = parser.parse_args()

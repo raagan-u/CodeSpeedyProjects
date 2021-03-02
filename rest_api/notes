@@ -1,1 +1,15 @@
-https://github.com/Rev0kz/Flask-API-Token/blob/master/app.py
+A Simple REST-API using Flask in Python
+
+Description:
+	A REST API built using flask and flask-sqlalchemy for Database Management flask-marshmallow for serializing data for easy processing.
+
+FULL:
+	This basic and complete rest_api can be used anywhere and be devloped more with required features.
+	SQL-Alchemy:
+		This is a ORM ( Object_Relational_Mapping ) for easy data management without the need of coding SQL Statements into the script.
+		The alternative to a SQL Backend is a NoSQl and the best resource is Mongo-Db
+	Marshmallow:
+		Marshamallow is used for serializing the data to make flow of data more easier
+REST-API:
+	This REST api has six endpoints with the all the basic and most-used five http methods GET,POST,PUT,PATCH,DELETE
+

@@ -1,0 +1,11 @@
+Simple-REST-API-Client in python
+
+Description
+	A comman-line tool for making requests to REST-APIs .
+
+FULL:
+	This tool consists of basic five http methods to send requests and receive respones
+	The builtin json module is used to get the json string provided along the command-line-argument
+	argparse is used to parse the command_line_arguments and the builtin python function vars is used to convert the namspace object of argparse 
+	into a dictionary from which we can use the command-line-data easily
+
